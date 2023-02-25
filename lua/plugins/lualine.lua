@@ -23,7 +23,7 @@ return {
         },
         winbar = {
           lualine_c = {
-            -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             {
               function()
                 return require("nvim-navic").get_location()

@@ -38,6 +38,9 @@ return {
   {
     "rmehri01/onenord.nvim",
     opts = {
+      styles = {
+        diagnostics = "undercurl",
+      },
       custom_highlights = {
         LeapBackdrop = { link = "LightspeedGreyWash" },
         LeapLabelPrimary = { link = "LightspeedLabel" },

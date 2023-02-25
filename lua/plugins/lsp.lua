@@ -6,6 +6,15 @@ return {
         vls = {
           cmd = { "v", "ls" },
         },
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+            },
+          },
+        },
       },
     },
   },
