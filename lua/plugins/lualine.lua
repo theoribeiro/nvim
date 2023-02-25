@@ -1,7 +1,19 @@
+local winbar_section = {
+  { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+  {
+    function()
+      return require("nvim-navic").get_location()
+    end,
+    cond = function()
+      return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+    end,
+  },
+}
+
 return {
   {
     "nvim-lualine/lualine.nvim",
-    opts = function(plugin)
+    opts = function(_)
       local icons = require("lazyvim.config").icons
 
       local function fg(name)
@@ -22,17 +34,10 @@ return {
           },
         },
         winbar = {
-          lualine_c = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            {
-              function()
-                return require("nvim-navic").get_location()
-              end,
-              cond = function()
-                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-              end,
-            },
-          },
+          lualine_c = winbar_section,
+        },
+        inactive_winbar = {
+          lualine_c = winbar_section,
         },
         sections = {
           lualine_a = { "mode" },
