@@ -30,7 +30,18 @@ return {
           globalstatus = true,
           disabled_filetypes = {
             statusline = { "dashboard", "lazy", "alpha" },
-            winbar = { "neo-tree", "dashboard", "alpha" },
+            winbar = {
+              "neo-tree",
+              "dashboard",
+              "alpha",
+              "dap-repl",
+              "dapui_scopes",
+              "dapui_breakpoints",
+              "dapui_stacks",
+              "dapui_watches",
+              "dapui_console",
+              "toggleterm",
+            },
           },
         },
         winbar = {
