@@ -23,6 +23,22 @@ return {
           --   return vim.loop.cwd()
           -- end,
         },
+        gopls = {
+          on_attach = function()
+            local coverage = require("coverage.config")
+            local coverage_file = require("lazyvim.util").get_root() .. "/coverage.out"
+            coverage.setup({
+              lang = {
+                go = {
+                  coverage_file = coverage_file,
+                },
+              },
+            })
+          end,
+        },
+        -- cucumber_language_server = {
+        --   cmd = { }
+        -- }
       },
     },
     init = function()

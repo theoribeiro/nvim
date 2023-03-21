@@ -28,6 +28,9 @@ return {
           request = "launch",
           mode = "test",
           program = "${file}",
+          dlvCwd = function()
+            return util.get_root()
+          end,
         },
         -- works with go.mod packages and sub packages
         {
@@ -35,7 +38,10 @@ return {
           name = "Debug test (go.mod)",
           request = "launch",
           mode = "test",
-          program = "./${relativeFileDirname}",
+          program = "../${relativeFileDirname}",
+          dlvCwd = function()
+            return util.get_root()
+          end,
         },
       }
     end,
@@ -145,18 +151,57 @@ return {
     dependencies = { "mfussenegger/nvim-dap" },
     opts = {
       icons = { expanded = "", collapsed = "", circular = "" },
+
+      layouts = {
+        {
+          elements = {
+            {
+              id = "scopes",
+              size = 0.25,
+            },
+            {
+              id = "breakpoints",
+              size = 0.25,
+            },
+            {
+              id = "stacks",
+              size = 0.25,
+            },
+            {
+              id = "watches",
+              size = 0.25,
+            },
+          },
+          position = "left",
+          size = 40,
+        },
+        {
+          elements = {
+            {
+              id = "repl",
+              size = 0.5,
+            },
+            {
+              id = "console",
+              size = 0.5,
+            },
+          },
+          position = "bottom",
+          size = 0.2,
+        },
+      },
     },
     init = function()
-      local dap, dapui = require("dap"), require("dapui")
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
+      -- local dap, dapui = require("dap"), require("dapui")
+      -- dap.listeners.after.event_initialized["dapui_config"] = function()
+      --   dapui.open()
+      -- end
+      -- dap.listeners.before.event_terminated["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+      -- dap.listeners.before.event_exited["dapui_config"] = function()
+      --   dapui.close()
+      -- end
       vim.fn.sign_define("DapBreakpoint", {
         text = "",
         texthl = "DiagnosticSignError",
@@ -183,6 +228,12 @@ return {
           require("dapui").toggle({ reset = true })
         end,
         desc = "Toggle UI",
+      },
+      {
+        "<A-h>",
+        function()
+          require("dapui").eval()
+        end,
       },
     },
   },
