@@ -9,6 +9,9 @@ return {
           return vim.o.columns * 0.4
         end
       end,
+      on_open = function()
+        vim.wo.sidescrolloff = 1
+      end,
 
       direction = "horizontal",
       open_mapping = [[<c-\>]],

@@ -13,7 +13,7 @@ return {
     "Exafunction/codeium.vim",
     enabled = true,
     config = function()
-      vim.g.codeium_manual = true
+      -- vim.g.codeium_manual = true
       vim.g.codeium_disable_bindings = 1
       vim.keymap.set("i", "<A-m>", function()
         return vim.fn["codeium#Accept"]()

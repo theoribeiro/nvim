@@ -24,6 +24,12 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   callback = function()
+--     require("util.launch_json").load()
+--   end,
+-- })
+
 -- vim.api.nvim_create_autocmd("NormalEnter", {
 --   callback = function()
 --     vim.notify("NormalEnter", vim.log.levels.ERROR)

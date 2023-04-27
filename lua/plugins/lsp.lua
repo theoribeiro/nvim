@@ -2,6 +2,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      format = {
+        timeout_ms = 10000,
+      },
       servers = {
         vls = {
           cmd = { "v", "ls" },
@@ -36,17 +39,56 @@ return {
             })
           end,
         },
+        yamlls = {
+          settings = {
+            yaml = {
+              schemaStore = {
+                url = "https://www.schemastore.org/api/json/catalog.json",
+                enable = true,
+              },
+              keyOrdering = false,
+              format = {
+                enable = true,
+              },
+            },
+          },
+        },
+        ruff_lsp = {
+          on_attach = function(client, _)
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
+        pyright = {},
         -- cucumber_language_server = {
         --   cmd = { }
         -- }
       },
     },
-    init = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- disable a keymap
-      -- keys[#keys + 1] = { "K", false }
-      -- keys[#keys + 1] = { "gd", false }
-    end,
+    --     init = function()
+    --       local configs = require("lspconfig.configs")
+    --       configs["bzl"] = {
+    --         default_config = {
+    --           cmd = { "bzl", "lsp", "serve" },
+    --           filetypes = { "bzl" },
+    --           root_dir = "", --require("lazyvim.util").get_root(),
+    --           -- autostart = true,
+    --         },
+    --         docs = {
+    --           description = [[
+    -- https://docs.stack.build/docs/cli/installation
+    --
+    -- https://docs.stack.build/docs/vscode/starlark-language-server
+    -- ]],
+    --           default_config = {
+    --             root_dir = [[root_pattern(".git")]],
+    --           },
+    --         },
+    --       }
+    --       require("lspconfig").bzl.setup({ root_dir = require("lazyvim.util").get_root })
+    --       -- disable a keymap
+    --       -- keys[#keys + 1] = { "K", false }
+    --       -- keys[#keys + 1] = { "gd", false }
+    --     end,
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -56,7 +98,8 @@ return {
         sources = {
           nls.builtins.formatting.eslint,
           nls.builtins.formatting.stylua,
-          nls.builtins.diagnostics.flake8,
+          nls.builtins.formatting.buildifier,
+          nls.builtins.diagnostics.buildifier,
         },
       }
     end,
