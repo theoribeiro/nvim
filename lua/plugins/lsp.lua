@@ -71,31 +71,6 @@ return {
         -- }
       },
     },
-    --     init = function()
-    --       local configs = require("lspconfig.configs")
-    --       configs["bzl"] = {
-    --         default_config = {
-    --           cmd = { "bzl", "lsp", "serve" },
-    --           filetypes = { "bzl" },
-    --           root_dir = "", --require("lazyvim.util").get_root(),
-    --           -- autostart = true,
-    --         },
-    --         docs = {
-    --           description = [[
-    -- https://docs.stack.build/docs/cli/installation
-    --
-    -- https://docs.stack.build/docs/vscode/starlark-language-server
-    -- ]],
-    --           default_config = {
-    --             root_dir = [[root_pattern(".git")]],
-    --           },
-    --         },
-    --       }
-    --       require("lspconfig").bzl.setup({ root_dir = require("lazyvim.util").get_root })
-    --       -- disable a keymap
-    --       -- keys[#keys + 1] = { "K", false }
-    --       -- keys[#keys + 1] = { "gd", false }
-    --     end,
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
