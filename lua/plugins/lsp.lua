@@ -52,6 +52,12 @@ return {
               },
             },
           },
+          -- on_attach = function(client, bufnr)
+          --   if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
+          --     local ns = vim.lsp.diagnostic.get_namespace(client.id)
+          --     vim.diagnostic.disable(nil, ns)
+          --   end
+          -- end,
         },
         ruff_lsp = {
           on_attach = function(client, _)
@@ -59,6 +65,7 @@ return {
           end,
         },
         pyright = {},
+        helm_ls = {},
         -- cucumber_language_server = {
         --   cmd = { }
         -- }

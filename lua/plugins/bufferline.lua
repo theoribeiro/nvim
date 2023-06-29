@@ -7,6 +7,16 @@ return {
         "<cmd>BufferLinePick<cr>",
         desc = "Buffer jump",
       },
+      {
+        "<leader>bl",
+        "<cmd>BufferLineCloseLeft<cr>",
+        desc = "Close buffers to the left",
+      },
+      {
+        "<leader>br",
+        "<cmd>BufferLineCloseRight<cr>",
+        desc = "Close buffers to the right",
+      },
     },
     opts = {
       options = {
