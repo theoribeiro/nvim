@@ -45,6 +45,8 @@ return {
               "starter",
               "Sidebar",
               "edgy",
+              "neotest-summary",
+              "neotest-output-panel",
             },
           },
         },
