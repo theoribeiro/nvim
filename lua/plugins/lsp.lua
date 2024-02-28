@@ -9,11 +9,51 @@ return {
         -- vls = {
         --   cmd = { "v", "ls" },
         -- },
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pyflakes = {
+        --           enabled = false,
+        --         },
+        --         rope_autoimport = {
+        --           enabled = true,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
+        pyright = {
+          on_attach = function(client, bufnr)
+            local venv_selector = require("venv-selector")
+            if venv_selector.get_active_venv() == nil then
+              venv_selector.retrieve_from_cache()
+            end
+          end,
+        },
         lua_ls = {
           settings = {
             Lua = {
               diagnostics = {
                 globals = { "vim" },
+              },
+            },
+          },
+        },
+        rust_analyzer = {
+          settings = {
+            ["rust-analyzer"] = {
+              diagnostics = {
+                disabled = { "needless_return" },
+              },
+            },
+          },
+        },
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = {
+                fieldalignment = false,
               },
             },
           },
@@ -26,69 +66,7 @@ return {
         --   return vim.loop.cwd()
         -- end,
         -- },
-        -- gopls = {
-        --   on_attach = function()
-        --     local coverage = require("coverage.config")
-        --     local coverage_file = require("lazyvim.util").get_root() .. "/coverage.out"
-        --     coverage.setup({
-        --       lang = {
-        --         go = {
-        --           coverage_file = coverage_file,
-        --         },
-        --       },
-        --     })
-        --   end,
-        -- },
-        -- yamlls = {
-        --   settings = {
-        --     yaml = {
-        --       schemaStore = {
-        --         url = "https://www.schemastore.org/api/json/catalog.json",
-        --         enable = true,
-        --       },
-        --       keyOrdering = false,
-        --       format = {
-        --         enable = true,
-        --       },
-        --     },
-        --   },
-        -- on_attach = function(client, bufnr)
-        --   if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
-        --     local ns = vim.lsp.diagnostic.get_namespace(client.id)
-        --     vim.diagnostic.disable(nil, ns)
-        --   end
-        -- end,
-        -- },
-        -- ruff_lsp = {
-        --   on_attach = function(client, _)
-        --     client.server_capabilities.hoverProvider = false
-        --   end,
-        -- },
-        -- pyright = {},
-        -- helm_ls = {},
-        -- cucumber_language_server = {
-        --   cmd = { }
-        -- }
       },
     },
   },
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   opts = function()
-  --     local nls = require("null-ls")
-  --     return {
-  --       sources = {
-  --         nls.builtins.formatting.eslint,
-  --         nls.builtins.formatting.stylua,
-  --         nls.builtins.formatting.buildifier,
-  --         nls.builtins.diagnostics.buildifier,
-  --       },
-  --     }
-  --   end,
-  --   -- init = function()
-  --   --   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-  --   --   vim.lsp.handlers["textDocument/signatureHelp"] =
-  --   --     vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
-  --   -- end,
-  -- },
 }

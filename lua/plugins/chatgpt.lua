@@ -6,6 +6,6 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   opts = {
-    api_key_cmd = "op read op://development/OpenAI/credential --no-newline",
+    -- api_key_cmd = "op read op://development/OpenAI/credential --no-newline",
   },
 }

@@ -23,7 +23,7 @@ M.load = function()
     )
   end
 
-  local root = require("lazyvim.util").get_root()
+  local root = require("lazyvim.util").root.get()
   for lang, lang_configs in pairs(dap.configurations) do
     for _, config in pairs(lang_configs) do
       if original_config[lang] == nil or not vim.tbl_contains(original_config[lang], config) then

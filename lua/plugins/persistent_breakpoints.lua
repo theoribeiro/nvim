@@ -8,7 +8,7 @@ return {
     keys = {
 
       {
-        "<leader>dt",
+        "<leader>db",
         function()
           require("persistent-breakpoints.api").toggle_breakpoint()
         end,

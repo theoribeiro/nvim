@@ -17,6 +17,15 @@ return {
         "<cmd>BufferLineCloseRight<cr>",
         desc = "Close buffers to the right",
       },
+      {
+        "<leader>.",
+        "<cmd>e #<cr>",
+        desc = "Switch to Other Buffer",
+      },
+      {
+        "<leader>`",
+        nil,
+      },
     },
     opts = {
       options = {
