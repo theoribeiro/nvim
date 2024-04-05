@@ -20,19 +20,23 @@ return {
     },
   },
   {
+    "leoluz/nvim-dap-go",
+    opts = {
+      extra_debug_opts = {
+        env = { TEMPORAL_DEBUG = "true" },
+      },
+    },
+  },
+  {
     "mfussenegger/nvim-dap",
-    -- init = function()
-    --   local dap = require("dap")
-    --
-    --   dap.adapters.delve = {
-    --     type = "server",
-    --     port = "${port}",
-    --     executable = {
-    --       command = vim.fn.stdpath("data") .. "/mason/packages/delve/dlv",
-    --       args = { "dap", "-l", "127.0.0.1:${port}" },
-    --     },
-    --   }
-    -- end,
+    init = function()
+      local dap = require("dap")
+      for key, value in ipairs(dap.configurations.go) do
+        if string.find(value.name, "Debug") then
+          value.env = { TEMPORAL_DEBUG = "true" }
+        end
+      end
+    end,
     keys = {
       -- {
       --   "<leader>db",

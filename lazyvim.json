@@ -7,6 +7,7 @@
     "lazyvim.plugins.extras.editor.aerial",
     "lazyvim.plugins.extras.lang.docker",
     "lazyvim.plugins.extras.lang.go",
+    "lazyvim.plugins.extras.lang.helm",
     "lazyvim.plugins.extras.lang.json",
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.python",
@@ -20,7 +21,7 @@
     "lazyvim.plugins.extras.ui.edgy"
   ],
   "news": {
-    "NEWS.md": "2123"
+    "NEWS.md": "3314"
   },
-  "version": 2
+  "version": 3
 }

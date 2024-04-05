@@ -1,3 +1,9 @@
+local env_select_func = function(client, bufnr)
+  local venv_selector = require("venv-selector")
+  if venv_selector.get_active_venv() == nil then
+    venv_selector.retrieve_from_cache()
+  end
+end
 return {
   {
     "neovim/nvim-lspconfig",
@@ -24,12 +30,10 @@ return {
         --   },
         -- },
         pyright = {
-          on_attach = function(client, bufnr)
-            local venv_selector = require("venv-selector")
-            if venv_selector.get_active_venv() == nil then
-              venv_selector.retrieve_from_cache()
-            end
-          end,
+          on_attach = env_select_func,
+        },
+        basedpyright = {
+          on_attach = env_select_func,
         },
         lua_ls = {
           settings = {
@@ -40,16 +44,24 @@ return {
             },
           },
         },
-        rust_analyzer = {
-          settings = {
-            ["rust-analyzer"] = {
-              diagnostics = {
-                disabled = { "needless_return" },
-              },
-            },
-          },
-        },
+        -- rust_analyzer = {
+        --   settings = {
+        --     ["rust-analyzer"] = {
+        --       diagnostics = {
+        --         disabled = { "needless_return" },
+        --       },
+        --     },
+        --   },
+        -- },
         gopls = {
+          keys = {
+            {
+              "<leader>ci",
+              [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]],
+              desc = "Implement interface",
+            },
+            { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
+          },
           settings = {
             gopls = {
               analyses = {
