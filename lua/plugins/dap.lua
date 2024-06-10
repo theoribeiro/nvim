@@ -8,6 +8,19 @@ local continue = function()
   dap.continue()
 end
 
+local function read_env(env, env_file)
+  return function()
+    return coroutine.create(function(dap_run_co)
+      local dotenv = require("util.dotenv")
+      local extra_envs = dotenv:parse(env_file)
+      if extra_envs ~= nil then
+        env = vim.tbl_deep_extend("force", env, extra_envs)
+      end
+      coroutine.resume(dap_run_co, env)
+    end)
+  end
+end
+
 return {
   {
     "mxsdev/nvim-dap-vscode-js",
@@ -19,74 +32,39 @@ return {
       -- log_console_level = vim.log.levels.DEBUG,
     },
   },
-  {
-    "leoluz/nvim-dap-go",
-    opts = {
-      extra_debug_opts = {
-        env = { TEMPORAL_DEBUG = "true" },
-      },
-    },
-  },
+  -- {
+  --   "leoluz/nvim-dap-go",
+  --   enabled = false,
+  --   -- opts = {
+  --   --   extra_debug_opts = {
+  --   --     env = { TEMPORAL_DEBUG = "true" },
+  --   --   },
+  --   -- },
+  -- },
   {
     "mfussenegger/nvim-dap",
     init = function()
       local dap = require("dap")
-      for key, value in ipairs(dap.configurations.go) do
-        if string.find(value.name, "Debug") then
-          value.env = { TEMPORAL_DEBUG = "true" }
-        end
-      end
+      dap.configurations.go = {
+        {
+          type = "go",
+          request = "launch",
+          name = "Debug",
+          program = ".",
+          envFile = "${fileDirname}/.env",
+          dlvCwd = "${fileDirname}",
+        },
+        {
+          type = "go",
+          request = "launch",
+          name = "Debug Test",
+          mode = "test",
+          program = ".",
+          dlvCwd = "${fileDirname}",
+        },
+      }
     end,
     keys = {
-      -- {
-      --   "<leader>db",
-      --   function()
-      --     require("dap").step_back()
-      --   end,
-      --   desc = "Step back",
-      -- },
-      -- {
-      --   "<leader>dc",
-      --   function()
-      --     continue()
-      --   end,
-      --   desc = "Continue",
-      -- },
-      -- {
-      --   "<leader>dC",
-      --   function()
-      --     require("dap").run_to_cursor()
-      --   end,
-      --   desc = "Run to cursor",
-      -- },
-      -- {
-      --   "<leader>ds",
-      --   function()
-      --     require("dap").close()
-      --   end,
-      --   desc = "Stop",
-      -- },
-      -- {
-      --   "<leader>dd",
-      --   function()
-      --     require("dap").disconnect()
-      --   end,
-      --   desc = "Disconnect",
-      -- },
-      -- {
-      --   "<leader>dg",
-      --   function()
-      --     require("dap").session()
-      --   end,
-      --   desc = "Get session",
-      -- },
-      -- {
-      --   "<leader>di",
-      --   function()
-      --     require("dap").step_into()
-      --   end,
-      --   desc = "Step into",
-      -- },
       {
         "<leader>do",
         function()
@@ -101,20 +79,10 @@ return {
         end,
         desc = "Step out",
       },
-      -- {
-      --   "<leader>dp",
-      --   function()
-      --     require("dap").pause()
-      --   end,
-      --   desc = "Pause",
-      -- },
-      -- {
-      --   "<leader>dr",
-      --   function()
-      --     require("dap").repl.toggle()
-      --   end,
-      --   desc = "Toggle repl",
-      -- },
+      {
+        "<leader>db",
+        false,
+      },
       {
         "<F4>",
         function()
@@ -197,44 +165,7 @@ return {
         },
       },
     },
-    -- init = function()
-    --   -- local dap, dapui = require("dap"), require("dapui")
-    --   -- dap.listeners.after.event_initialized["dapui_config"] = function()
-    --   --   dapui.open()
-    --   -- end
-    --   -- dap.listeners.before.event_terminated["dapui_config"] = function()
-    --   --   dapui.close()
-    --   -- end
-    --   -- dap.listeners.before.event_exited["dapui_config"] = function()
-    --   --   dapui.close()
-    --   -- end
-    --   vim.fn.sign_define("DapBreakpoint", {
-    --     text = "",
-    --     texthl = "DiagnosticSignError",
-    --     linehl = "",
-    --     numhl = "",
-    --   })
-    --   vim.fn.sign_define("DapBreakpointRejected", {
-    --     text = "",
-    --     texthl = "DiagnosticSignError",
-    --     linehl = "",
-    --     numhl = "",
-    --   })
-    --   vim.fn.sign_define("DapStopped", {
-    --     text = "",
-    --     texthl = "DiagnosticSignError",
-    --     linehl = "Visual",
-    --     numhl = "DiagnosticSignWarn",
-    --   })
-    -- end,
     keys = {
-      -- {
-      --   "<leader>dU",
-      --   function()
-      --     require("dapui").toggle({ reset = true })
-      --   end,
-      --   desc = "Toggle UI",
-      -- },
       {
         "<A-h>",
         function()

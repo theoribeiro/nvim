@@ -1,9 +1,3 @@
-local env_select_func = function(client, bufnr)
-  local venv_selector = require("venv-selector")
-  if venv_selector.get_active_venv() == nil then
-    venv_selector.retrieve_from_cache()
-  end
-end
 return {
   {
     "neovim/nvim-lspconfig",
@@ -15,26 +9,6 @@ return {
         -- vls = {
         --   cmd = { "v", "ls" },
         -- },
-        -- pylsp = {
-        --   settings = {
-        --     pylsp = {
-        --       plugins = {
-        --         pyflakes = {
-        --           enabled = false,
-        --         },
-        --         rope_autoimport = {
-        --           enabled = true,
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
-        pyright = {
-          on_attach = env_select_func,
-        },
-        basedpyright = {
-          on_attach = env_select_func,
-        },
         lua_ls = {
           settings = {
             Lua = {

@@ -26,15 +26,15 @@ return {
     opts.left = vim.tbl_filter(function(item)
       return item.title ~= "Neo-Tree Git" and item.title ~= "Neo-Tree Buffers"
     end, opts.left)
-    table.insert(opts.left, {
-      title = "Aerial",
-      ft = "aerial",
-      pinned = true,
-      open = "AerialOpen",
-    })
-
-    opts.right = vim.tbl_filter(function(item)
-      return item.title ~= "Aerial"
-    end, opts.right)
+    -- table.insert(opts.left, {
+    --   title = "Aerial",
+    --   ft = "aerial",
+    --   pinned = true,
+    --   open = "AerialOpen",
+    -- })
+    --
+    -- opts.right = vim.tbl_filter(function(item)
+    --   return item.title ~= "Aerial"
+    -- end, opts.right)
   end,
 }
