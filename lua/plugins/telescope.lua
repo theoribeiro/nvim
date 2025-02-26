@@ -1,34 +1,45 @@
-local Util = require("lazyvim.util")
+-- local Util = require("lazyvim.util")
 return {
-  {
-    "nvim-telescope/telescope.nvim",
-    opts = {
-      defaults = {
-        selection_strategy = "reset",
-        sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
-        layout_config = {
-          horizontal = {
-            prompt_position = "top",
-            preview_width = 0.55,
-            results_width = 0.8,
-          },
-          vertical = {
-            mirror = false,
-          },
-          width = 0.87,
-          height = 0.80,
-          preview_cutoff = 120,
-        },
-      },
-    },
-    keys = {
-      { "<leader>fF", Util.telescope("files"), desc = "Find Files (root dir)" },
-      { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      { "<leader>sG", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-      { "<leader>sg", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-      { "<leader>/", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-    },
-  },
+  -- {
+  --   "nvim-telescope/telescope.nvim",
+  --   opts = function(_, opts)
+  --     local actions = require("telescope.actions")
+  --     local defaults = {
+  --       selection_strategy = "reset",
+  --       sorting_strategy = "ascending",
+  --       layout_strategy = "horizontal",
+  --       layout_config = {
+  --         horizontal = {
+  --           prompt_position = "top",
+  --           preview_width = 0.55,
+  --           results_width = 0.8,
+  --         },
+  --         vertical = {
+  --           mirror = false,
+  --         },
+  --         width = 0.87,
+  --         height = 0.80,
+  --         preview_cutoff = 120,
+  --       },
+  --       mappings = {
+  --         i = {
+  --           ["<M-S-Left"] = actions.results_scrolling_left,
+  --           ["<M-S-Right"] = actions.results_scrolling_right,
+  --           ["<M-S-Up"] = actions.results_scrolling_up,
+  --           ["<M-S-Down"] = actions.results_scrolling_down,
+  --         },
+  --       },
+  --     }
+  --     opts.defaults = vim.tbl_deep_extend("force", defaults, opts.defaults)
+  --     return opts
+  --   end,
+  --   keys = {
+  --     { "<leader>fF", Util.pick("files"), desc = "Find Files (root dir)" },
+  --     { "<leader><space>", Util.pick("files", { root = false }), desc = "Find Files (cwd)" },
+  --     { "<leader>ff", Util.pick("files", { root = false }), desc = "Find Files (cwd)" },
+  --     { "<leader>sG", Util.pick("live_grep"), desc = "Grep (root dir)" },
+  --     { "<leader>sg", Util.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+  --     { "<leader>/", Util.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+  --   },
+  -- },
 }

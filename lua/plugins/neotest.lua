@@ -3,7 +3,7 @@ return {
   opts = {
     log_level = "debug",
     adapters = {
-      require("neotest-golang")({ dap_go_enabled = true }),
+      require("neotest-golang")({ testify_enabled = true }),
     },
   },
 }

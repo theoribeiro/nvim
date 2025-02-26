@@ -6,30 +6,6 @@ return {
     },
   },
   {
-    "olimorris/onedarkpro.nvim",
-    lazy = true,
-    config = function()
-      require("onedarkpro").setup({
-        highlights = {
-          LeapBackdrop = {
-            link = "Comment",
-          },
-          LeapMatch = {
-            fg = "white",
-          },
-          LeapLabelPrimary = {
-            fg = "#e34646",
-            style = "bold,underline",
-          },
-          LeapLabelSecondary = {
-            fg = "#346eeb",
-            style = "bold",
-          },
-        },
-      })
-    end,
-  },
-  {
     "rmehri01/onenord.nvim",
     opts = function(_, opts)
       local colors = require("onenord.colors").load()

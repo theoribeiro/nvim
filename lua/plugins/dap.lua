@@ -8,19 +8,6 @@ local continue = function()
   dap.continue()
 end
 
-local function read_env(env, env_file)
-  return function()
-    return coroutine.create(function(dap_run_co)
-      local dotenv = require("util.dotenv")
-      local extra_envs = dotenv:parse(env_file)
-      if extra_envs ~= nil then
-        env = vim.tbl_deep_extend("force", env, extra_envs)
-      end
-      coroutine.resume(dap_run_co, env)
-    end)
-  end
-end
-
 return {
   {
     "mxsdev/nvim-dap-vscode-js",
@@ -51,7 +38,7 @@ return {
           request = "launch",
           name = "Debug",
           program = ".",
-          envFile = "${fileDirname}/.env",
+          envFile = { "${fileDirname}/.env", "${fileDirname}/.env.development", "${fileDirname}/.env.dev" },
           dlvCwd = "${fileDirname}",
         },
         {
