@@ -33,8 +33,12 @@ return {
     --   open = "AerialOpen",
     -- })
     --
-    -- opts.right = vim.tbl_filter(function(item)
-    --   return item.title ~= "Aerial"
-    -- end, opts.right)
+    opts.right = vim.tbl_map(function(item)
+      if item.ft == "snacks_terminal" then
+        item.size = item.size or {}
+        item.size.width = 0.3
+      end
+      return item
+    end, opts.right)
   end,
 }

@@ -41,3 +41,14 @@
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.opt.title = true
 vim.opt.titlestring = [[%{substitute(getcwd(),'^.*/','','')} - %t]]
+if vim.g.vscode then
+  local vscode_neovim = require("vscode-neovim")
+  vim.api.nvim_create_autocmd({ "VimEnter", "ModeChanged" }, {
+    callback = function(args)
+      vim.notify(vim.fn.mode(1))
+      vscode_neovim.call("setContext", {
+        args = { "neovim.fullMode", vim.fn.mode(1) },
+      })
+    end,
+  })
+end

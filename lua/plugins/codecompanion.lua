@@ -7,6 +7,7 @@ return {
     },
     config = true,
     opts = {
+      picker = "snacks",
       adapters = {
         gemini = function()
           return require("codecompanion.adapters").extend("gemini", {
@@ -20,14 +21,26 @@ return {
             },
           })
         end,
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            -- env = {
+            --   api_key = "cmd:security find-generic-password -s gemini -w",
+            -- },
+            schema = {
+              model = {
+                default = "gemini-2.5-pro",
+              },
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = "copilot",
           slash_commands = {
             ["file"] = {
               opts = {
-                provider = "fzf_lua",
+                provider = "snacks",
                 contains_code = true,
               },
             },

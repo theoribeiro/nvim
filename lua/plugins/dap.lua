@@ -38,7 +38,9 @@ return {
           request = "launch",
           name = "Debug",
           program = ".",
-          envFile = { "${fileDirname}/.env", "${fileDirname}/.env.development", "${fileDirname}/.env.dev" },
+          envFile = function()
+            return "${fileDirname}/.env"
+          end,
           dlvCwd = "${fileDirname}",
         },
         {

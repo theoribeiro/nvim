@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight",
+      colorscheme = "onenord",
     },
   },
   {
@@ -53,5 +53,18 @@ return {
       }
       return vim.tbl_extend("force", opts, myopts)
     end,
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+  },
+  {
+    "Tsuzat/NeoSolarized.nvim",
+    opts = {
+      style = "light",
+      transparent = false,
+    },
   },
 }
