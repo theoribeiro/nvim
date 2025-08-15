@@ -6,8 +6,9 @@ return {
     end,
   },
   {
-    "theoribeiro/nvim-dap-go",
+    "leoluz/nvim-dap-go",
     config = true,
+    dev = true,
     opts = {
       debug_config = {
         type = "go",

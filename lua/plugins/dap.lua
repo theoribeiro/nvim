@@ -32,7 +32,51 @@ return {
     "mfussenegger/nvim-dap",
     init = function()
       local dap = require("dap")
+      dap.adapters.lldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
+          args = { "--port", "${port}" },
+          -- Tell codelldb which liblldb to use
+          env = {
+            LLDB_LIBRARY_PATH = "/opt/homebrew/opt/llvm/lib/liblldb.dylib", -- or Homebrew path
+          },
+        },
+      }
+      -- dap.configurations.rust = {
+      --   {
+      --     name = "TEST",
+      --     type = "codelldb",
+      --     request = "launch",
+      --     program = function()
+      --       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      --     end,
+      --     cwd = "${workspaceFolder}",
+      --     args = { "-p", "resources/tests/valid", "foo:" },
+      --     stopOnEntry = false,
+      --     initCommands = function()
+      --       -- Find rust sysroot
+      --       local rustc_sysroot = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
+      --       local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+      --       local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
+      --
+      --       local commands = {}
+      --       local file = io.open(commands_file, "r")
+      --       if file then
+      --         for line in file:lines() do
+      --           table.insert(commands, line)
+      --         end
+      --         file:close()
+      --       end
+      --
+      --       table.insert(commands, 1, script_import)
+      --       return commands
+      --     end,
+      --   },
+      -- }
       dap.configurations.go = {
+
         {
           type = "go",
           request = "launch",
@@ -160,6 +204,7 @@ return {
         function()
           require("dapui").eval()
         end,
+        remap = false,
       },
     },
   },

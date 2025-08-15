@@ -52,3 +52,17 @@ if vim.g.vscode then
     end,
   })
 end
+
+vim.g.rustaceanvim = {
+  dap = {
+    configuration = {
+      name = "Rust debug adapter",
+      type = "codelldb", -- or "codelldb",
+      request = "launch",
+      initCommands = {
+        "command source ~/.lldbinit",
+      },
+      stopOnEntry = false,
+    },
+  },
+}

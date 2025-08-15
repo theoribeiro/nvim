@@ -76,3 +76,30 @@ end
 
 vim.cmd("command! RemoveQFItem lua Remove_qf_item()")
 vim.api.nvim_command("autocmd FileType qf nnoremap <buffer> dd :RemoveQFItem<cr>")
+
+-- vim.api.nvim_create_autocmd({ "DirChanged", "BufEnter" }, {
+--   callback = function()
+--     -- If current buffer is not a file, do nothing
+--     if vim.fn.expand("%:t") == "" then
+--       return
+--     end
+--
+--     -- Set title to current directory and file name
+--     vim.fn.system({
+--       "zellij",
+--       "action",
+--       "rename-tab",
+--       vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " - " .. vim.fn.expand("%:t"),
+--     })
+--   end,
+-- })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*.go" },
+  callback = function()
+    local lsputil = require("lspconfig.util")
+    local cwd = lsputil.root_pattern("go.mod")(vim.fn.expand("%:p"))
+    local config = lsputil.root_pattern(".golangci.yaml")(vim.fn.expand("%:p"))
+    local golangcilint = require("lint.linters.golangcilint")
+    golangcilint.cwd = cwd
+  end,
+})

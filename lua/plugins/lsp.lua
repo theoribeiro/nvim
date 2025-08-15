@@ -35,6 +35,10 @@ return {
             },
           },
         },
+        -- harper_ls = {
+        --   enabled = true,
+        --   filetypes = { "markdown", "go", "rust", "javascript", "typescript", "python" },
+        -- },
         -- tsserver = {
         -- root_dir = function(pattern)
         --   local lspconfig = require("lspconfig")
